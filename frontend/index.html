@@ -1,37 +1,13 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Lighting Takeoff</title>
-</head>
-<body>
-  <h1>Lighting Takeoff Demo</h1>
-  <input type="file" id="fileInput" />
-  <button onclick="upload()">Upload</button>
-  <pre id="output"></pre>
-
-  <script>
-    const API_URL = "https://takeoff-api.onrender.com"; // 🔥 Hardcoded URL
-
-    async function upload() {
-      const file = document.getElementById('fileInput').files[0];
-      if (!file) return alert("Please select a file");
-
-      const formData = new FormData();
-      formData.append("file", file);
-
-      try {
-        const res = await fetch(`${API_URL}/upload/`, {
-          method: "POST",
-          body: formData
-        });
-        const data = await res.json();
-        document.getElementById('output').textContent = JSON.stringify(data, null, 2);
-      } catch (err) {
-        document.getElementById('output').textContent = "Error: " + err.message;
-      }
-    }
-
-    window.upload = upload;
-  </script>
-</body>
+  <head>
+    <title>Lighting Takeoff Demo</title>
+  </head>
+  <body>
+    <h1>Lighting Takeoff Demo</h1>
+    <input type="file" id="fileInput" />
+    <button onclick="upload()">Upload</button>
+    <pre id="output"></pre>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>
