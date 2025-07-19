@@ -9,8 +9,8 @@
   <button onclick="upload()">Upload</button>
   <pre id="output"></pre>
 
-  <script type="module">
-    const API_URL = import.meta.env.VITE_API_URL;
+  <script>
+    const API_URL = "https://takeoff-api.onrender.com"; // 🔥 Hardcoded URL
 
     async function upload() {
       const file = document.getElementById('fileInput').files[0];
