@@ -1,23 +1,37 @@
 <!DOCTYPE html>
 <html>
-<head><title>Takeoff MVP</title></head>
+<head>
+  <title>Lighting Takeoff</title>
+</head>
 <body>
-<h1>Lighting Takeoff</h1>
-<input type="file" id="fileInput" />
-<button onclick="upload()">Upload</button>
-<pre id="output"></pre>
-<script>
-function upload() {
-  const file = document.getElementById('fileInput').files[0];
-  const formData = new FormData();
-  formData.append("file", file);
-  fetch('https://takeoff-api.onrender.com/upload/', {
-    method: 'POST',
-    body: formData
-  })
-  .then(res => res.json())
-  .then(data => document.getElementById('output').textContent = JSON.stringify(data, null, 2));
-}
-</script>
+  <h1>Lighting Takeoff Demo</h1>
+  <input type="file" id="fileInput" />
+  <button onclick="upload()">Upload</button>
+  <pre id="output"></pre>
+
+  <script type="module">
+    const API_URL = import.meta.env.VITE_API_URL;
+
+    async function upload() {
+      const file = document.getElementById('fileInput').files[0];
+      if (!file) return alert("Please select a file");
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      try {
+        const res = await fetch(`${API_URL}/upload/`, {
+          method: "POST",
+          body: formData
+        });
+        const data = await res.json();
+        document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        document.getElementById('output').textContent = "Error: " + err.message;
+      }
+    }
+
+    window.upload = upload;
+  </script>
 </body>
 </html>
